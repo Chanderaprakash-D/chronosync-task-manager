@@ -55,7 +55,7 @@ const TaskCard = ({ task, onUpdate, onDelete }: TaskCardProps) => {
 
   const isOverdue = new Date(task.dueDate) < new Date() && task.status !== 'completed';
 
-  const handleStatusChange = (newStatus: string) => {
+  const handleStatusChange = (newStatus: 'pending' | 'in-progress' | 'completed') => {
     if (newStatus === 'completed') {
       setIsCompleting(true);
       setTimeout(() => {

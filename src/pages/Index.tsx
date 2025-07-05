@@ -10,10 +10,21 @@ import TaskCard from '@/components/TaskCard';
 import TaskForm from '@/components/TaskForm';
 import AuthCard from '@/components/AuthCard';
 
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in-progress' | 'completed';
+  dueDate: string;
+  sharedWith: string[];
+  createdAt: string;
+}
+
 const Index = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState<Task[]>([
     {
       id: 1,
       title: "Complete project documentation",
@@ -42,8 +53,8 @@ const Index = () => {
     setIsAuthenticated(true);
   };
 
-  const addTask = (newTask) => {
-    const task = {
+  const addTask = (newTask: any) => {
+    const task: Task = {
       ...newTask,
       id: Date.now(),
       createdAt: new Date().toISOString().split('T')[0],
@@ -53,13 +64,13 @@ const Index = () => {
     setShowTaskForm(false);
   };
 
-  const updateTask = (taskId, updates) => {
+  const updateTask = (taskId: number, updates: Partial<Task>) => {
     setTasks(tasks.map(task => 
       task.id === taskId ? { ...task, ...updates } : task
     ));
   };
 
-  const deleteTask = (taskId) => {
+  const deleteTask = (taskId: number) => {
     setTasks(tasks.filter(task => task.id !== taskId));
   };
 
