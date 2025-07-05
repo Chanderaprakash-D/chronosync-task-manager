@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import { Plus, Calendar, Users, CheckCircle, Clock, AlertCircle } from 'lucide-r
 import TaskCard from '@/components/TaskCard';
 import TaskForm from '@/components/TaskForm';
 import AuthCard from '@/components/AuthCard';
+import OutputSidebar from '@/components/OutputSidebar';
 
 interface Task {
   id: number;
@@ -24,6 +24,7 @@ interface Task {
 const Index = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showOutputSidebar, setShowOutputSidebar] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: 1,
@@ -252,6 +253,13 @@ const Index = () => {
           onClose={() => setShowTaskForm(false)}
         />
       )}
+
+      {/* Output Sidebar */}
+      <OutputSidebar
+        tasks={tasks}
+        isVisible={showOutputSidebar}
+        onToggle={() => setShowOutputSidebar(!showOutputSidebar)}
+      />
     </div>
   );
 };
